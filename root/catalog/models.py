@@ -33,3 +33,4 @@ class Product(models.Model):
         return str(self.name)
 
 # comment 2
+# comment 3
