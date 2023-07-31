@@ -17,7 +17,7 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{% static 'css/core-style.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
 </head>
 
 <body>
@@ -26,7 +26,6 @@
     {% block content %}{% endblock content %}
     {% include '_fragments/footer.html' %}
 
-    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/plugins.js' %}"></script>
