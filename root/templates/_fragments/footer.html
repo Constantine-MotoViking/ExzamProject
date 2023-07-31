@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-        <!-- ##### Footer Area Start ##### -->
+{% extends '_layouts/base.html' %}
+
+{% load static %}
+{% block content %}
+    <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="row">
@@ -82,6 +79,4 @@
         </div>
     </footer>
     <!-- ##### Footer Area End ##### -->
-
-</body>
-</html>
+{% endblock content %}

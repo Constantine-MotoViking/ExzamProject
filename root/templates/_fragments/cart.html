@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="uk">
+{% extends '_layouts/base.html' %}
 
-<body>
+{% load static %}
+{% block content %}
     <!-- ##### Right Side Cart Area ##### -->
     <div class="cart-bg-overlay"></div>
 
@@ -83,4 +82,5 @@
         </div>
     </div>
     <!-- ##### Right Side Cart End ##### -->
-</body>
+
+{% endblock content %}
