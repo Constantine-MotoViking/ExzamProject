@@ -2,12 +2,13 @@
 
 {% block content %}
 {% load static %}
+<script src="{% static 'js/auth_js/signup.js' %}"></script>
 <div class="content-panel">
     <!-- ================================================ -->
      <div style="text-align: center">
         <h2>{{ page_title }}</h2>
     </div>
-    <form id="form1" action="/users/sign_up" method="post" onsubmit="return false">
+    <form id="form1" action="/accounts/sign_up" method="post" onsubmit="return false">
         {% csrf_token %}
         <p>
             <label for="login">Логін:</label><br>
