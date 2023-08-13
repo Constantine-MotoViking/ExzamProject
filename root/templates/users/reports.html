@@ -3,8 +3,12 @@
 {% block content %}
 <div class="content-panel">
     <!-- ================================================ -->
-    <h2>{{ page_title }}</h2>
-    <h3>Контент сторінки {{ page_title }}</h3>
+     <div style="text-align: center">
+        <h2>{{ page_title }}</h2>
+    </div>
+    <h3 style="color: {{ color }}">
+        {{ report }}
+    </h3>
     <!-- ================================================ -->
 </div>
 {% endblock content %}

@@ -7,7 +7,7 @@
      <div style="text-align: center">
         <h2>{{ page_title }}</h2>
     </div>
-    <form id="form1" action="/users/sign_in" method="post" onsubmit="return true">
+    <form id="form1" action="/users/sign_up" method="post" onsubmit="return false">
         {% csrf_token %}
         <p>
             <label for="login">Логін:</label><br>
@@ -20,11 +20,17 @@
             <div id="pass1-mess" class="mess"></div>
         </p>
         <p>
-            <input type="checkbox" id="remember" name="remember">
-            <label for="remember">Залишатись в системі:</label><br>
+            <label for="pass2">Повтор:</label><br>
+            <input type="password" id="pass2" name="pass2" class="inp" required>
+            <div id="pass2-mess" class="mess"></div>
+        </p>
+        <p>
+            <label for="email">E-Mail:</label><br>
+            <input type="email" id="email" name="email" class="inp" required>
+            <div id="email-mess" class="mess"></div>
         </p>
         <p style="margin-top: 30px; text-align: center">
-            <input id="submit" type="submit" value="Увійти" class="btn">
+            <input id="submit" type="submit" value="Відправити" class="btn">
             <input id="reset" type="reset" value="Очистити" class="btn">
         </p>
     </form>
@@ -56,4 +62,5 @@
         font-size: 0.95em;
     }
 </style>
+<script src="{% static 'js/signup.js' %}"></script>
 {% endblock content %}

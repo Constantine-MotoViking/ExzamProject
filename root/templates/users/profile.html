@@ -1,17 +1,12 @@
 {% extends '_layouts/base.html' %}
 
 {% block content %}
-    <div class="content-panel">
-        <div class="section">
-			<div class="container">
-				<div class="row">
-                    <!-- ------------------------------------------------------- -->
-                    <h3 style="color: teal; text-align: center; font-style: italic">
-                        Контент сторінки {{ title }}
-                    </h3>
-                    <!-- ------------------------------------------------------- -->
-				</div>
-			</div>
-		</div>
+<div class="content-panel">
+    <!-- ================================================ -->
+     <div style="text-align: center">
+        <h2>{{ page_title }}</h2>
     </div>
+    <h3>Контент сторінки {{ page_title }}</h3>
+    <!-- ================================================ -->
+</div>
 {% endblock content %}
