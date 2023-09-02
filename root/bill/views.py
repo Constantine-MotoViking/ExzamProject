@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 from liqpay import LiqPay
 from django.views.decorators.csrf import csrf_exempt
 import json
+import hashlib
+import base64
 
 
 def checkout(request):
@@ -19,32 +22,26 @@ def liqpay_payment(request):
         amount = request.POST.get('amount')
         description = request.POST.get('description')
 
-        liqpay = LiqPay(
-            public_key='YOUR_PUBLIC_KEY',
-            private_key='YOUR_PRIVATE_KEY',
-        )
+        public_key = 'sandbox_i48179431932'
+        private_key = 'sandbox_thk0aoKFXarAROfllj6S0u1SCZIjq8LPU1cVvZq8'
 
-        params = {
+        data = {
             'action': 'pay',
             'amount': amount,
             'currency': 'UAH',
             'description': description,
             'order_id': order_id,
-            'result_url': 'https://yourwebsite.com/payment/success/',
+            'version': '3',
+            'public_key': public_key,
         }
 
-        # Генеруємо підпис
-        signature = liqpay.cnb_signature(params)
+        # Формуємо підпис для даних
+        data_encoded = base64.b64encode(json.dumps(data).encode())
+        signature = base64.b64encode(hashlib.sha1(f"{private_key}{data_encoded}{private_key}".encode()).digest())
 
-        # Додаємо підпис до параметрів
-        params['signature'] = signature
-
-        # Створюємо форму для переходу до оплати
-        form = liqpay.cnb_form(params)
-
-        return HttpResponse(form)
+        return HttpResponse()
     else:
-        return HttpResponse("Метод не дозволений")
+        return HttpResponseBadRequest("Метод не дозволений")
 
 
 @csrf_exempt
