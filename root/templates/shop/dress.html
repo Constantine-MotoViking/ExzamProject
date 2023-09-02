@@ -45,7 +45,7 @@
                                         <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                         <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     </div>
-                                    <div class="range-price">Range: $49.00 - $360.00</div>
+                                    <div class="range-price">Діапазон: $49.00 - $360.00</div>
                                 </div>
                             </div>
                         </div>
@@ -76,20 +76,13 @@
                     <div class="shop_grid_product_area">
                         <div class="row">
                             <div class="col-12">
-                                <div class="product-topbar d-flex align-items-center justify-content-between">
-                                    <!-- Total Products -->
-                                    <div class="total-products">
-                                        <p>Знайдено <span>186</span> товарів</p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
-                        <div class="row">
-
+                        <div id="catalog-panel" class="row">
                             <!-- Single Product for -->
-                            <div id="catalog-panel" class="col-12 col-sm-6 col-lg-4">
-                                {% for p in all_products %}
+                            {% for p in all_products %}
+                                <div class="col-12 col-sm-6 col-lg-4">
                                     <div class="single-product-wrapper">
                                         <!-- Product Image -->
                                         <div class="product-img">
@@ -117,9 +110,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                {% endfor %}
-                            </div>
-
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
