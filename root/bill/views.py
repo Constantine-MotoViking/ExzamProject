@@ -72,6 +72,7 @@ def ajax_cart(request):
     uid = request.GET.get('uid')
     pid = request.GET.get('pid')
     price = request.GET.get('price')
+    img = request.GET.get('image')
 
     # 2 - Створюємо нове замовлення та зберігаемо його в БД:
     Order.objects.create(
@@ -80,6 +81,7 @@ def ajax_cart(request):
         product_id=pid,
         amount=float(price),
         notes='Очікує підтвердження',
+        image=img
     )
 
     # 3 - Зчитуємо із бази список всіх замовлень даного користувача:

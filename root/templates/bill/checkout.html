@@ -86,12 +86,11 @@
                             <h5>Замовлення</h5>
                             <p>Деталі</p>
                         </div>
-
-                        <ul class="order-details-form mb-4">
-                            <li><span>Назва товару</span> <span>$59.90</span></li>
-                            <li><span>Доставка</span> <span>Безкоштовна</span></li>
-                            <li><span>Сума до сплати</span> <span>$59.90</span></li>
-                        </ul>
+                            <ul class="order-details-form mb-4">
+                                <li><span>{{ o.product }}</span> <span>{{ o.price }}</span></li>
+                                <li><span>Доставка</span> <span>Безкоштовна</span></li>
+                                <li><span>Сума до сплати</span> <span>{{ o.amount }}</span></li>
+                            </ul>
                         <form method="post" action="{% url 'liqpay_payment' %}" class="payment-form">
                             {% csrf_token %}
                             <button type="submit" class="btn essence-btn">Оплатити</button>

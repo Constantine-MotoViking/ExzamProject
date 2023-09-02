@@ -18,6 +18,7 @@ class Order(models.Model):
     amount = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(max_length=300)
+    image = models.ImageField(upload_to='order_images/')
 
 
 class Wish(models.Model):

@@ -1,76 +1,23 @@
 {% load static %}
-    <!-- ##### Right Side Cart Area ##### -->
     <div class="cart-bg-overlay"></div>
 
     <div class="right-side-cart-area">
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="{% static 'img/core-img/bag.svg' %}" alt=""> <span>3</span></a>
+            <a href="#" id="rightSideCart"><img src="{% static 'img/core-img/bag.svg' %}" alt=""></a>
         </div>
 
         <div class="cart-content d-flex">
 
-            <!-- Cart List Area -->
-            <div class="cart-list">
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="{% static 'img/product-img/product-1.jpg' %}" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Міні-сукня на ґудзиках</h6>
-                            <p class="size">Розмір: S</p>
-                            <p class="color">Колір: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="{% static 'img/product-img/product-2.jpg' %}" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Міні-сукня на ґудзиках</h6>
-                            <p class="size">Розмір: S</p>
-                            <p class="color">Колір: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="{% static 'img/product-img/product-3.jpg' %}" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Міні-сукня на ґудзиках</h6>
-                            <p class="size">Розмір: S</p>
-                            <p class="color">Колір: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
 
             <!-- Cart Summary -->
             <div class="cart-amount-summary">
 
                 <h2>Загалом</h2>
                 <ul class="summary-table">
-                    <li><span>Загальна:</span> <span>$274.00</span></li>
-                    <li><span>Доставка:</span> <span>Free</span></li>
-                    <li><span>Скидка:</span> <span>-15%</span></li>
-                    <li><span>Загальна сумма:</span> <span>$232.00</span></li>
+                    <li><span>Доставка:</span> <span>Безкоштовна</span></li>
+                    <li><span>Загальна сумма:</span> <span>{{ amount }}</span></li>
                 </ul>
                 <div class="checkout-btn mt-100">
                     <a href="bill/checkout" class="btn essence-btn">check out</a>
@@ -78,5 +25,4 @@
             </div>
         </div>
     </div>
-    <!-- ##### Right Side Cart End ##### -->
-
+<script src="{% static 'js/shop_js/calc_orders.js' %}"></script>

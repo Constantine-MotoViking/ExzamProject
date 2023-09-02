@@ -26,6 +26,8 @@ $(document).ready(() => {
             const productPrice = parseFloat(cleanedPriceText);
             console.log('productPrice -> ' + productPrice);
 
+            const productImageURL = $(event.target).closest('.single-product-wrapper').find('.product-img img').attr('src');
+
             // AJAX-запит на збереження товару у бд:
             $.ajax({
                 url: '/bill/ajax_cart',

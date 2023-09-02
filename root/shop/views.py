@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import render
 from catalog.models import *
 from bill.models import *
@@ -9,7 +10,8 @@ def dress(request):
         'page': 'dress',
         'app': 'shop',
         'all_categories': Category.objects.all(),
-        'all_products': Product.objects.all()
+        'all_products': Product.objects.all(),
+        'all_orders': Order.objects.all()
     })
 
 
@@ -20,5 +22,3 @@ def wishlist(request):
         'app': 'shop',
         'all_products': Wish.objects.all()
     })
-
-
