@@ -1,7 +1,7 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import *
 
 urlpatterns = [
-    path('checkout', checkout),
+    re_path('checkout', checkout),
     path('liqpay_payment/', liqpay_payment, name='liqpay_payment'),
 ]
