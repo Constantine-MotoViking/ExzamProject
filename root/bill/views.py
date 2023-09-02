@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
+from django.http import JsonResponse
+from django.utils import timezone
+from django.core.mail import send_mail
 from liqpay import LiqPay
+from .models import Order
 from django.views.decorators.csrf import csrf_exempt
 import json
 import hashlib
@@ -58,3 +62,60 @@ def liqpay_callback(request):
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=405)
+
+
+def ajax_cart(request):
+    response = dict()
+    response['message'] = 'Привіт від сервера!'
+
+    # 1 - Отримуємо значення get-параметрів від кліента
+    uid = request.GET.get('uid')
+    pid = request.GET.get('pid')
+    price = request.GET.get('price')
+
+    # 2 - Створюємо нове замовлення та зберігаемо його в БД:
+    Order.objects.create(
+        title=f'Order-{pid}/{uid}/{timezone.now()}',
+        user_id=uid,
+        product_id=pid,
+        amount=float(price),
+        notes='Очікує підтвердження'
+    )
+
+    # 3 - Зчитуємо із бази список всіх замовлень даного користувача:
+    user_orders = Order.objects.filter(user_id=uid)
+
+    # 4 - Обчислюємо загальну вартість всіх замовлень даного користувача:
+    amount = 0
+    for order in user_orders:
+        amount += order.amount
+
+    # 5 - Записуємо у відповідь сервера загальну вартість та кількість товарів:
+    response['amount'] = amount
+    response['count'] = len(user_orders)
+
+    return JsonResponse(response)
+
+
+def ajax_cart_display(request):
+    # 1
+    response = dict()
+    response['message'] = 'AJAX-OK'
+
+    # 2
+    uid = request.GET.get('uid')
+    response['uid'] = uid
+
+    # 3
+    user_products = Order.objects.filter(user_id=uid)
+    amount = 0
+
+    # 4
+    for product in user_products:
+        amount += product.amount
+
+    # 5
+    response['count'] = len(user_products)
+    response['total'] = amount
+
+    return JsonResponse(response)

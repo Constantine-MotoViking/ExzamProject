@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from catalog.models import *
 
 
 def dress(request):
@@ -6,4 +7,8 @@ def dress(request):
         'title': 'Сукні',
         'page': 'dress',
         'app': 'shop',
+        'all_categories': Category.objects.all(),
+        'all_products': Product.objects.all()
     })
+
+
