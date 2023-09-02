@@ -12,7 +12,6 @@ class Category(models.Model):
         return str(self.name)
 
 
-
 class Product(models.Model):
     # 3
     name = models.CharField(max_length=100)
