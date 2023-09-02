@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.core.mail import send_mail
 from liqpay import LiqPay
-from .models import Order
+from .models import Order, Wish
 from django.views.decorators.csrf import csrf_exempt
 import json
 import hashlib
@@ -119,3 +119,64 @@ def ajax_cart_display(request):
     response['total'] = amount
 
     return JsonResponse(response)
+
+
+@csrf_exempt
+def ajax_wish(request):
+    response = dict()
+    response['message'] = 'Привіт від сервера!'
+
+    uid = request.GET.get('uid')
+    user_products = Wish.objects.filter(user_id=uid)
+    amount = 0
+
+    response['count'] = len(user_products)
+
+    uid = request.GET.get('uid')
+    pid = request.GET.get('pid')
+    price = request.GET.get('price')
+
+    Wish.objects.create(
+        title=f'Wish-{pid}/{uid}/{timezone.now()}',
+        user_id=uid,
+        product_id=pid,
+        amount=float(price),
+        notes='Додано до списку бажаного'
+    )
+
+    return JsonResponse(response)
+
+
+@csrf_exempt
+def check_wishlist(request):
+    if request.method == 'GET':
+        user_id = request.GET.get('user_id')
+        product_id = request.GET.get('product_id')
+
+        # Перевірте, чи товар знаходиться в обраному для даного користувача
+        is_in_wishlist = Wish.objects.filter(user_id=user_id, product_id=product_id).exists()
+
+        response = {'is_in_wishlist': is_in_wishlist}
+        return JsonResponse(response)
+
+
+@csrf_exempt
+def remove_from_wishlist(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        product_id = request.POST.get('product_id')
+
+        try:
+            # Видаліть товар зі списку обраного на стороні сервера
+            # Використовуйте Django ORM для цього
+            Wish.objects.filter(user_id=user_id, product_id=product_id).delete()
+
+            # Поверніть відповідь, яка містить оновлену кількість товарів в обраному
+            user_products = Wish.objects.filter(user_id=user_id)
+            response = {'message': 'Товар успішно видалено з обраного', 'count': len(user_products)}
+
+            return JsonResponse(response)
+        except Exception as e:
+            return JsonResponse({'message': 'Помилка при видаленні товару з обраного'})
+    else:
+        return JsonResponse({'message': 'Недопустимий метод запиту'})
