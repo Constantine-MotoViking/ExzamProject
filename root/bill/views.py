@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.core.mail import send_mail
 from liqpay import LiqPay
-from .models import Order, Wish
+from .models import *
 from django.views.decorators.csrf import csrf_exempt
 import json
 import hashlib
@@ -79,7 +79,7 @@ def ajax_cart(request):
         user_id=uid,
         product_id=pid,
         amount=float(price),
-        notes='Очікує підтвердження'
+        notes='Очікує підтвердження',
     )
 
     # 3 - Зчитуємо із бази список всіх замовлень даного користувача:
@@ -135,13 +135,15 @@ def ajax_wish(request):
     uid = request.GET.get('uid')
     pid = request.GET.get('pid')
     price = request.GET.get('price')
+    img = request.GET.get('image')
 
     Wish.objects.create(
         title=f'Wish-{pid}/{uid}/{timezone.now()}',
         user_id=uid,
         product_id=pid,
         amount=float(price),
-        notes='Додано до списку бажаного'
+        notes='Додано до списку бажаного',
+        image=img
     )
 
     return JsonResponse(response)

@@ -30,6 +30,7 @@ class Wish(models.Model):
     amount = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(max_length=300)
+    image = models.ImageField(upload_to='wishlist_images/')
 
     def str(self) -> str:
         return str(self.title)

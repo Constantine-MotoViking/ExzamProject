@@ -1,0 +1,52 @@
+{% extends '_layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div style="text-align: center; padding-top: 2%">
+        <h1>Список обраного</h1>
+    </div>
+
+    <section class="shop_grid_area section-padding-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="shop_grid_product_area">
+                        <div id="catalog-panel" class="row">
+                            <!-- Single Product for -->
+                            {% for p in all_products %}
+                                <div class="col-12 col-sm-6 col-lg-4">
+                                    <div class="single-product-wrapper">
+                                        <!-- Product Image -->
+                                        <div class="product-img">
+                                            <img src="{{ p.image }}" alt="">
+                                        </div>
+
+                                        <!-- Product Description -->
+                                        <div class="product-description">
+                                            <a href="single-product-details.html">
+                                                <h6>{{ p.name }}</h6>
+                                            </a>
+                                            <p class="product-price">${{ p.amount }}</p>
+
+                                            <!-- Hover Content -->
+                                            <div class="hover-content">
+                                                <!-- Add to Cart -->
+                                                <div class="add-to-cart-btn">
+                                                    <input type="hidden" value="{{p.id}}">
+                                                    <a href="#" id="add-to-cart" class="btn essence-btn">Додати до кошика</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="{% static 'js/shop_js/shop.js' %}"></script>
+    <script src="{% static 'js/shop_js/wish.js' %}"></script>
+{% endblock content %}

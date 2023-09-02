@@ -14,6 +14,8 @@ $(document).ready(() => {
         const productPriceText = $(event.target).closest('.single-product-wrapper').find('.product-price').text();
         const productPrice = parseFloat(productPriceText.replace(/\$/g, '').trim());
 
+        const productImageURL = $(event.target).closest('.single-product-wrapper').find('.product-img img').attr('src');
+
         // Викликати функцію для перевірки стану товару в обраному на сервері
         $.ajax({
             type: 'GET',
@@ -47,7 +49,8 @@ $(document).ready(() => {
                         data: {
                             uid: userId,
                             pid: productId,
-                            price: productPrice
+                            price: productPrice,
+                            image: productImageURL
                         },
                         success: (response) => {
                             console.log('AJAX -> OK / ' + response.message);
