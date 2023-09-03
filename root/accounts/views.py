@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from bill.models import *
 
 
 def sign_up(request):
@@ -61,9 +62,12 @@ def sign_out(request):
 
 
 def profile(request):
-    return render(request, 'users/profile.html', context={
-        'page_title': 'Профіль користувача'
-    })
+    all_orders = Order.objects.all()
+    context = {
+        'page_title': 'Профіль користувача',
+        'all_orders': all_orders
+    }
+    return render(request, 'users/profile.html', context)
 
 
 def sign_up_in(request):
