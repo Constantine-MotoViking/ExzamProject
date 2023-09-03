@@ -70,6 +70,15 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
+def prof_wish(request):
+    all_wishes = Wish.objects.all()
+    context = {
+        'page_title': 'Профіль користувача',
+        'all_wishes': all_wishes
+    }
+    return render(request, 'users/prof_wish.html', context)
+
+
 def sign_up_in(request):
     return render(request, 'users/sign_up_in.html', context={
         'page_title': 'Сторінка входу/реєстрації'

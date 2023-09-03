@@ -55,7 +55,11 @@
             <!-- User Login Info -->
             <div class="user-login-info">
                 <input type="hidden" id="user-id" value="{{ user.id }}">
-                <a href="/accounts/sign_up_in"><img src="{% static 'img/core-img/user.svg' %}" alt=""></a>
+                {% if not user.is_authenticated %}
+                    <a href="/accounts/sign_up_in"><img src="{% static 'img/core-img/user.svg' %}" alt=""></a>
+                {% else %}
+                    <a href="/accounts/profile"><img src="{% static 'img/core-img/user.svg' %}" alt=""></a>
+                {% endif %}
             </div>
             <!-- Cart Area -->
             <div class="cart-area">

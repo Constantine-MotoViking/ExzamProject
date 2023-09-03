@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label for="phone_number">Номер телефону <span>*</span></label>
-                                    <input type="number" class="form-control" id="phone_number" min="0" value="">
+                                    <input type="text" class="form-control" id="phone_number" min="0" value="">
                                 </div>
                                 <div class="col-12 mb-4">
                                     <label for="email_address">Електронна пошта <span>*</span></label>
@@ -64,10 +64,6 @@
                                     <div class="custom-control custom-checkbox d-block mb-2">
                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                                         <label class="custom-control-label" for="customCheck1">Правила та умови</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox d-block mb-2">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                        <label class="custom-control-label" for="customCheck2">Створити акаунт</label>
                                     </div>
                                     <div class="custom-control custom-checkbox d-block">
                                         <input type="checkbox" class="custom-control-input" id="customCheck3">
@@ -86,11 +82,15 @@
                             <h5>Замовлення</h5>
                             <p>Деталі</p>
                         </div>
+
                             <ul class="order-details-form mb-4">
-                                <li><span>{{ o.product }}</span> <span>{{ o.price }}</span></li>
+                                {% for order in order_summary_list %}
+                                <li><span>{{ order.product }}</span> <span> x{{ order.quantity }}</span></li>
+                                {% endfor %}
                                 <li><span>Доставка</span> <span>Безкоштовна</span></li>
-                                <li><span>Сума до сплати</span> <span>{{ o.amount }}</span></li>
+                                <li><span>Сума до сплати</span> <span>{{ total_price }}</span></li>
                             </ul>
+
                         <form method="post" action="{% url 'liqpay_payment' %}" class="payment-form">
                             {% csrf_token %}
                             <button type="submit" class="btn essence-btn">Оплатити</button>

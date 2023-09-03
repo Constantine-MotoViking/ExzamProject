@@ -1,3 +1,4 @@
+from collections import defaultdict
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
@@ -13,10 +14,23 @@ import base64
 
 
 def checkout(request):
+    all_orders = Order.objects.all()
+    total_price = sum(order.amount for order in all_orders)
+
+    order_summary = defaultdict(int)
+
+    for order in all_orders:
+        order_summary[order.product] += 1
+
+    order_summary_list = [{'product': product, 'quantity': quantity} for product, quantity in order_summary.items()]
+
     return render(request, 'bill/checkout.html', {
         'title': 'Замовлення',
         'page': 'checkout',
         'app': 'bill',
+        'all_orders': all_orders,
+        'total_price': total_price,
+        'order_summary_list': order_summary_list
     })
 
 
