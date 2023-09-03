@@ -11,7 +11,6 @@ def dress(request):
         'app': 'shop',
         'all_categories': Category.objects.all(),
         'all_products': Product.objects.all(),
-        'all_orders': Order.objects.all()
     })
 
 
