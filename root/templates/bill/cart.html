@@ -3,8 +3,8 @@
 {% block content %}
     <div class="content-panel">
         <div class="section">
-			<div class="container">
-				<div class="row">
+            <div class="container">
+                <div class="row">
                     <!-- ------------------------------------------------------- -->
                     {% for order in all_orders %}
                         <div class="card mb-3 col-md-4">
@@ -29,25 +29,36 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <br style="clear: both">
-                    <hr>
-                    <h4 style="color: gray; text-align: center">
-                        Загальна вартість:
-                        <span style="color: red">{{total_price}} грн</span>
-                    </h4>
-
-                    <br>
-                    <p style="text-align: center">
-                        <a href="/orders/confirm/{{init_list}}" class="btn btn-success">
-                            Підтвердити замовлення
-                        </a>
-                        <a href="/orders" class="btn btn-primary">
-                            Повернутись до кошика
-                        </a>
-                    </p>
                     <!-- ------------------------------------------------------- -->
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Перемістіть цей блок до низу та вирівняйте по центру -->
+    <div style="text-align: center;">
+        <br style="clear: both">
+        <hr>
+        <h4 style="color: gray;">
+            Загальна вартість:
+            <span style="color: red">{{total_price}} грн</span>
+        </h4>
+        <br>
+        <div>
+            <p style="text-align: center">
+                <a href="/orders/confirm/{{init_list}}" class="btn btn-success">
+                    Підтвердити замовлення
+                </a>
+            </p>
+        </div>
+
+        <div>
+            <p style="text-align: center">
+                <a href="/orders" class="btn btn-primary">
+                    Повернутись до кошика
+                </a>
+            </p>
+        </div>
+        <hr>
     </div>
 {% endblock content %}
