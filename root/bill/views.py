@@ -20,6 +20,16 @@ def checkout(request):
     })
 
 
+def cart(request):
+    all_orders = Order.objects.all()  # Отримуємо всі замовлення з бази даних
+    total_price = sum(order.amount for order in all_orders)  # Обчислюємо загальну ціну всіх замовлень
+    context = {
+        'all_orders': all_orders,
+        'total_price': total_price,
+    }
+    return render(request, 'bill/cart.html', context)
+
+
 def liqpay_payment(request):
     if request.method == 'POST':
         order_id = request.POST.get('order_id')
