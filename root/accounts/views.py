@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 def sign_up(request):
@@ -30,6 +31,7 @@ def sign_up(request):
         })
 
 
+@csrf_exempt
 def sign_in(request):
     if request.method == 'GET':
         return render(request, 'users/signin.html', context={
@@ -48,10 +50,8 @@ def sign_in(request):
             report = 'Вхід виконано успішно!'
             login(request, user)
 
-        return render(request, 'users/reports.html', context={
-            'page_title': 'Звіт про авторизацію',
-            'color': color,
-            'report': report
+        return render(request, 'users/profile.html', context={
+            'page_title': 'Обліковий запис',
         })
 
 
