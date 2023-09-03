@@ -3,10 +3,133 @@
 {% block content %}
 <div class="content-panel">
     <!-- ================================================ -->
-     <div style="text-align: center">
-        <h2>{{ page_title }}</h2>
-    </div>
-    <h3>Контент сторінки {{ page_title }}</h3>
+     <main role="main">
+        <div class="page-content">
+            <div class="container">
+                <div class="page-title h1">
+                    <span>Мій особистий кабінет</span>
+                </div>
+
+                <div class="cabinet">
+
+                    <!-- Sidebar -->
+                    <div class="cabinet__sidebar">
+                        <div class="sidebar-menu">
+                            <a href="/ua/profile" class="sidebar-menu__item sidebar-menu__item--active">Мій особистий кабінет</a>
+                            <a href="/ua/profileinfo" class="sidebar-menu__item ">Особисті дані</a>
+                            <a href="/ua/profileaddress" class="sidebar-menu__item ">Адреси для доставки</a>
+                            <a href="/ua/profilewishlist" class="sidebar-menu__item ">Список бажань</a>
+                            <a href="/ua/profileorders" class="sidebar-menu__item ">Історія замовлень</a>
+                            <a href="/ua/wallet" class="sidebar-menu__item ">Гаманець</a>
+                        </div>
+                        <a href="/ua/logout" class="cabinet__log-out">Вийти</a>
+
+                        <div class="select-menu">
+                            <div class="choices" role="listbox" data-type="select-one" tabindex="0" aria-haspopup="true" aria-expanded="false" dir="ltr" aria-activedescendant="choices-jkh6-item-choice-1">
+                                <div class="choices__inner"><select class="select choices__input is-hidden" tabindex="-1" style="display:none;" aria-hidden="true" data-choice="active"><option value="/ua/profile" selected="">Мій особистий кабінет</option></select><div class="choices__list choices__list--single"><div class="choices__item choices__item--selectable" data-item="" data-id="1" data-value="/ua/profile" aria-selected="true">
+                                    Мій особистий кабінет
+                                </div></div></div><div class="choices__list choices__list--dropdown" aria-expanded="false">
+                                <div class="choices__list" dir="ltr" role="listbox"><div class="choices__item choices__item--choice choices__item--selectable is-highlighted" data-select-text="" data-choice="" data-id="1" data-value="/ua/profile" data-choice-selectable="" id="choices-jkh6-item-choice-1" role="option" aria-selected="true">
+                                    Мій особистий кабінет
+                                </div><div class="choices__item choices__item--choice choices__item--selectable" data-select-text="" data-choice="" data-id="2" data-value="/ua/profileinfo" data-choice-selectable="" id="choices-jkh6-item-choice-2" role="option">
+                                    Особисті дані
+                                </div><div class="choices__item choices__item--choice choices__item--selectable" data-select-text="" data-choice="" data-id="3" data-value="/ua/profileaddress" data-choice-selectable="" id="choices-jkh6-item-choice-3" role="option">
+                                    Адреси для доставки
+                                </div><div class="choices__item choices__item--choice choices__item--selectable" data-select-text="" data-choice="" data-id="4" data-value="/ua/profilewishlist" data-choice-selectable="" id="choices-jkh6-item-choice-4" role="option">
+                                    Список бажань
+                                </div><div class="choices__item choices__item--choice choices__item--selectable" data-select-text="" data-choice="" data-id="5" data-value="/ua/profileorders" data-choice-selectable="" id="choices-jkh6-item-choice-5" role="option">
+                                    Історія замовлень
+                                </div><div class="choices__item choices__item--choice choices__item--selectable" data-select-text="" data-choice="" data-id="6" data-value="/ua/wallet" data-choice-selectable="" id="choices-jkh6-item-choice-6" role="option">
+                                    Гаманець
+                                </div><div class="choices__item choices__item--choice choices__item--selectable" data-select-text="" data-choice="" data-id="7" data-value="/ua/logout" data-choice-selectable="" id="choices-jkh6-item-choice-7" role="option">
+                                    Вийти
+                            </div></div></div></div>
+                        </div>
+                    </div>
+                    <!-- /Sidebar -->
+
+                    <div class="cabinet__content--large">
+                        <div class="dashboard">
+
+                            <div class="dashboard__greetings">
+                                <div class="h3">Добрий день, </div>
+                                <p>
+                                    Тут ви можете відстежувати статус всіх ваших покупок, дивитися історію того, що вже було куплено, управляти даними для доставки, а також переглядати і редагувати свій обліковий запис.                        </p>
+                            </div>
+
+                            <!-- info -->
+                            <div class="dashboard__info">
+                                <div class="address__row">
+                                    <div class="address__column">
+                                        <div class="h3">Особисті дані</div>
+                                        <div class="form-group">
+                                            <div id="profile-user-data">
+                                                <p>
+                                                    <br>
+                                                    whyghoster16@gmail.com<br>
+                                                </p>
+                                            </div>
+                                            <a href="#data-change" class="change-data" data-modal-open="">Змінити</a>
+                                        </div>
+                                        <a href="#pass-change" class="change-password" data-modal-open="">Зміна пароля</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal content -->
+                            <div id="address-2" style="display:none">
+                            </div>
+                            <!-- /Modal content -->
+
+                            <!-- Modal content -->
+                            <div id="address-new" style="display:none">
+                            </div>
+                            <!-- /Modal content -->
+
+                            <!-- Modal content -->
+                            <div id="data-change" style="display:none">
+                            </div>
+                            <!-- /Modal content -->
+
+                            <!-- Modal content -->
+                            <div id="pass-change" style="display:none">
+                            </div>
+                            <!-- /Modal content -->
+                            <!-- /info -->
+
+                            <!-- wishlist -->
+
+                            <!-- Modal content -->
+                            <div id="product-edit-1" style="display:none">
+                            </div>
+                            <!-- /Modal content -->
+                            <!-- /wishlist -->
+
+                            <!-- history -->
+                            <div class="history">
+                                <div class="h3">Всі замовлення:</div>
+
+                                    <div class="history__table"></div>
+                            </div>
+                            <!-- /history -->
+
+                            <div class="dashboard__newsletter">
+                                <div class="form-group">
+                                    <input id="newsletter" type="checkbox" name="newsletter" data-id="137557" checked="">
+                                    <label for="newsletter">Підписка на новини</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cabinet__sidebar--stopper">
+                        &nbsp;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+     </main>
     <!-- ================================================ -->
 </div>
 {% endblock content %}
