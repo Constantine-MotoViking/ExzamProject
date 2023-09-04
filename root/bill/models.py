@@ -19,6 +19,10 @@ class Order(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(max_length=300)
     image = models.ImageField(upload_to='order_images/')
+    payment_status = models.CharField(max_length=20, default='pending')
+    transaction_id = models.CharField(max_length=50, blank=True, null=True)
+    payment_date = models.DateTimeField(blank=True, null=True)
+    payment_method = models.CharField(max_length=50, blank=True, null=True)
 
 
 class Wish(models.Model):

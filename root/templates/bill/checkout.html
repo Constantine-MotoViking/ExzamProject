@@ -91,9 +91,10 @@
                                 <li><span>Сума до сплати</span> <span>{{ total_price }}</span></li>
                             </ul>
 
-                        <form method="post" action="{% url 'liqpay_payment' %}" class="payment-form">
-                            {% csrf_token %}
-                            <button type="submit" class="btn essence-btn">Оплатити</button>
+                        <form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
+                            <input type="hidden" name="data" value="{{ liqpay_data }}" />
+                            <input type="hidden" name="signature" value="{{ liqpay_signature }}" />
+                            <input type="image" src="//static.liqpay.ua/buttons/p1ru.radius.png" />
                         </form>
                     </div>
                 </div>

@@ -1,16 +1,92 @@
 from collections import defaultdict
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.http import HttpResponseBadRequest
-from django.http import JsonResponse
-from django.utils import timezone
-from django.core.mail import send_mail
-from liqpay import LiqPay
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.utils import timezone
+from liqpay import LiqPay
 import json
-import hashlib
 import base64
+import hashlib
+from .models import *
+
+
+@csrf_exempt
+def liqpay_payment(request):
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        amount = request.POST.get('amount')
+        description = request.POST.get('description')
+
+        public_key = 'sandbox_i48179431932'
+        private_key = 'sandbox_thk0aoKFXarAROfllj6S0u1SCZIjq8LPU1cVvZq8'
+        sandbox_mode = True  # Включити тестовий режим (True) або вимкнути (False)
+
+        # Параметри для створення платежу
+        data = {
+            "version": "3",
+            "public_key": public_key,
+            "action": "pay",
+            "amount": amount,
+            "currency": "USD",  # Змініть на потрібну валюту
+            "description": description,
+            "order_id": order_id,
+            "result_url": request.build_absolute_uri(reverse('payment_success')),
+            # URL для перенаправлення після оплати
+            "server_url": request.build_absolute_uri(reverse('liqpay_callback')),
+            # URL для отримання callback від LiqPay
+        }
+
+        # Якщо включений тестовий режим, додати відповідний прапорець
+        if sandbox_mode:
+            data["sandbox"] = "1"
+
+        # Підписати дані для відправки в LiqPay
+        data = base64.b64encode(json.dumps(data).encode()).decode()
+        signature = base64.b64encode(hashlib.sha1(f"{private_key}{data}{private_key}".encode()).digest()).decode()
+
+        return render(request, 'bill/checkout.html', {
+            'liqpay_data': data,
+            'liqpay_signature': signature,
+        })
+    else:
+        return HttpResponseBadRequest("Метод не дозволений")
+
+
+@csrf_exempt
+def liqpay_callback(request):
+    if request.method == 'POST':
+        data = request.POST.get('data')
+        signature = request.POST.get('signature')
+
+        public_key = 'sandbox_i48179431932'
+        private_key = 'sandbox_thk0aoKFXarAROfllj6S0u1SCZIjq8LPU1cVvZq8'
+
+        # Перевірка підпису
+        expected_signature = base64.b64encode(
+            hashlib.sha1(f"{private_key}{data}{private_key}".encode()).digest()).decode()
+
+        if signature == expected_signature:
+            # Якщо підпис вірний, розшифруйте дані
+            decoded_data = base64.b64decode(data).decode()
+            payment_info = json.loads(decoded_data)
+
+            # Отримайте ідентифікатор замовлення з отриманих даних
+            order_id = payment_info.get('order_id')
+
+            # Оновіть статус замовлення в базі даних, наприклад, на "success"
+            Order.objects.filter(title=order_id).update(payment_status='success')
+
+            # Можливо, вам також потрібно записати іншу інформацію про платіж
+
+            # Поверніть успішну відповідь, щоб LiqPay зупинив надсилання повідомлень
+            return HttpResponse(status=200)
+        else:
+            # Якщо підпис невірний, поверніть помилку
+            return HttpResponseBadRequest("Помилка перевірки підпису")
+    else:
+        return HttpResponseBadRequest("Метод не дозволений")
 
 
 def checkout(request):
@@ -51,50 +127,6 @@ def cart(request):
         'order_summary_list': order_summary_list
     }
     return render(request, 'bill/cart.html', context)
-
-
-def liqpay_payment(request):
-    if request.method == 'POST':
-        order_id = request.POST.get('order_id')
-        amount = request.POST.get('amount')
-        description = request.POST.get('description')
-
-        public_key = 'sandbox_i48179431932'
-        private_key = 'sandbox_thk0aoKFXarAROfllj6S0u1SCZIjq8LPU1cVvZq8'
-
-        data = {
-            'action': 'pay',
-            'amount': amount,
-            'currency': 'UAH',
-            'description': description,
-            'order_id': order_id,
-            'version': '3',
-            'public_key': public_key,
-        }
-
-        # Формуємо підпис для даних
-        data_encoded = base64.b64encode(json.dumps(data).encode())
-        signature = base64.b64encode(hashlib.sha1(f"{private_key}{data_encoded}{private_key}".encode()).digest())
-
-        return HttpResponse()
-    else:
-        return HttpResponseBadRequest("Метод не дозволений")
-
-
-@csrf_exempt
-def liqpay_callback(request):
-    if request.method == 'POST':
-        data = json.loads(request.body.decode('utf-8'))
-
-        # Отримайте дані про оплату з callback
-        order_id = data.get('order_id')
-        payment_status = data.get('status')
-
-        # Оновіть статус оплати в базі даних
-
-        return HttpResponse(status=200)
-    else:
-        return HttpResponse(status=405)
 
 
 def ajax_cart(request):
