@@ -14,7 +14,7 @@ import base64
 
 
 def checkout(request):
-    all_orders = Order.objects.all()
+    all_orders = Order.objects.filter(user_id=request.user.id)
     total_price = sum(order.amount for order in all_orders)
 
     order_summary = defaultdict(int)
@@ -35,7 +35,7 @@ def checkout(request):
 
 
 def cart(request):
-    all_orders = Order.objects.all()  # Отримуємо всі замовлення з бази даних
+    all_orders = Order.objects.filter(user_id=request.user.id)  # Отримуємо всі замовлення з бази даних
     total_price = sum(order.amount for order in all_orders)  # Обчислюємо загальну ціну всіх замовлень
     context = {
         'all_orders': all_orders,

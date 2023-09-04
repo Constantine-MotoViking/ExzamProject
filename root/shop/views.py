@@ -19,5 +19,5 @@ def wishlist(request):
         'title': 'Список обраного',
         'page': 'wishlist',
         'app': 'shop',
-        'all_products': Wish.objects.all()
+        'all_products': Wish.objects.filter(user_id=request.user.id)
     })

@@ -71,7 +71,7 @@ def profile(request):
 
 
 def prof_wish(request):
-    all_wishes = Wish.objects.all()
+    all_wishes = Wish.objects.filter(user_id=request.user.id)
     context = {
         'page_title': 'Профіль користувача',
         'all_wishes': all_wishes
