@@ -1,30 +1,18 @@
 {% extends '_layouts/base.html' %}
 
 {% block content %}
-    <div class="content-panel">
+    <div class="content-panel" style="padding: 3%">
         <div class="section">
             <div class="container">
                 <div class="row">
                     <!-- ------------------------------------------------------- -->
-                    {% for order in all_orders %}
+                    {% for order in order_summary_list %}
                         <div class="card mb-3 col-md-4">
                             <div class="row g-0">
                                 <div class="col-md-8">
                                     <div class="card-body">
-
                                         <h4 class="card-title" style="color: black">
-                                            {{order.product}}
-                                        </h4>
-
-                                        <h4 style="color: #000; font-size: 16px;
-                                            font-weight: 700px;
-                                            line-height: 20px;
-                                            margin-top: 0;
-                                            margin-bottom: 12px; text-decoration-line: underline;">
-                                        </h4>
-                                        <h4 style="color: blue">
-
-                                            ${{order.amount}}
+                                            {{order.product}} <span> x{{ order.quantity }}</span>
                                         </h4>
                                     </div>
                                 </div>

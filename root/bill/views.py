@@ -35,11 +35,20 @@ def checkout(request):
 
 
 def cart(request):
-    all_orders = Order.objects.filter(user_id=request.user.id)  # Отримуємо всі замовлення з бази даних
-    total_price = sum(order.amount for order in all_orders)  # Обчислюємо загальну ціну всіх замовлень
+    all_orders = Order.objects.filter(user_id=request.user.id)
+    total_price = sum(order.amount for order in all_orders)
+
+    order_summary = defaultdict(int)
+
+    for order in all_orders:
+        order_summary[order.product] += 1
+
+    order_summary_list = [{'product': product, 'quantity': quantity} for product, quantity in order_summary.items()]
+
     context = {
         'all_orders': all_orders,
         'total_price': total_price,
+        'order_summary_list': order_summary_list
     }
     return render(request, 'bill/cart.html', context)
 
